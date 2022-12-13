@@ -9,7 +9,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://127.0.0.1:3000"],
+    origin: "http://127.0.0.1:3000",
     credentials: true,
   })
 );
@@ -38,9 +38,9 @@ db.once("open", function () {
   console.log("Connected");
 });
 
-app.get("/", (req, res) => {
-  res.send(req.cookies);
-});
+// app.get("/", (req, res) => {
+//   res.send(req.cookies);
+// });
 
 const port = process.env.PORT || 8000;
 
