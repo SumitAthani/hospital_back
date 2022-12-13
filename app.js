@@ -8,10 +8,10 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 app.use(express.json());
 app.use(
-	cors({
-		origin: ["http://127.0.0.1:3000"],
-		credentials: true,
-	})
+  cors({
+    origin: ["*"],
+    credentials: true,
+  })
 );
 
 // MONGODB_URL="mongodb://localhost:27017/hospital"
@@ -25,25 +25,25 @@ const userRoute = require("./routes/users");
 app.use("/user", userRoute);
 
 mongoose.connect(
-	process.env.MONGODB_URL,
-	{ useNewUrlParser: true, useUnifiedTopology: true },
-	(err) => {
-		console.log(err);
-	}
+  process.env.MONGODB_URL,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err) => {
+    console.log(err);
+  }
 );
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
-	console.log("Connected");
+  console.log("Connected");
 });
 
 app.get("/", (req, res) => {
-	res.send(req.cookies);
+  res.send(req.cookies);
 });
 
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
-	console.log(`listening on port ${port}`);
+  console.log(`listening on port ${port}`);
 });
